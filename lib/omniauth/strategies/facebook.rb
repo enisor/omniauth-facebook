@@ -67,8 +67,6 @@ module OmniAuth
         with_authorization_code! do
           super
         end
-      rescue => e
-        fail!(:error_in_lib, e)
       rescue NoAuthorizationCodeError => e
         fail!(:no_authorization_code, e)
       rescue OmniAuth::Facebook::SignedRequest::UnknownSignatureAlgorithmError => e
