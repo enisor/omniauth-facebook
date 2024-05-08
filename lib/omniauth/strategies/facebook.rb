@@ -13,7 +13,7 @@ module OmniAuth
 
       option :client_options, {
         site: 'https://graph.facebook.com/v2.6',
-        authorize_url: "https://www.facebook.com/v2.6/dialog/oauth",
+        authorize_url: "https://www.facebook.com/v2.6/dialog/oauth?config_id=956724726169729",
         token_url: 'oauth/access_token'
       }
 
@@ -102,6 +102,7 @@ module OmniAuth
           end
 
           params[:scope] ||= DEFAULT_SCOPE
+          params[:config_id] = "956724726169729"
         end
       end
 
