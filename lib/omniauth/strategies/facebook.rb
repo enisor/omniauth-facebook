@@ -102,7 +102,7 @@ module OmniAuth
           end
 
           params[:scope] ||= DEFAULT_SCOPE
-          params[:config_id] = "956724726169729"
+          # params[:config_id] = "956724726169729"
         end
       end
 
