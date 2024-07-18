@@ -13,7 +13,7 @@ module OmniAuth
 
       option :client_options, {
         site: 'https://graph.facebook.com/v2.6',
-        authorize_url: "https://www.facebook.com/v2.6/dialog/oauth?config_id=956724726169729",
+        authorize_url: "https://www.facebook.com/v2.6/dialog/oauth",
         token_url: 'oauth/access_token'
       }
 
@@ -22,7 +22,7 @@ module OmniAuth
         param_name: 'access_token'
       }
 
-      option :authorize_options, [:scope, :display, :auth_type, :config_id, :extras, :response_type]
+      option :authorize_options, [:scope, :display, :auth_type, :extras, :response_type]
 
       uid { raw_info['id'] }
 
@@ -58,7 +58,6 @@ module OmniAuth
         params = {appsecret_proof: appsecret_proof}
         params.merge!({fields: (options[:info_fields] || 'name,email')})
         params.merge!({locale: options[:locale]}) if options[:locale]
-        # params.merge!({config_id: "956724726169729"})
 
         { params: params }
       end
@@ -89,20 +88,19 @@ module OmniAuth
         options.access_token_options.inject({}) { |h,(k,v)| h[k.to_sym] = v; h }
       end
 
-      # You can pass +display+, +scope+, +auth_type+ or +config_id+ params to the auth request, if you need to set them dynamically.
+      # You can pass +display+, +scope+, or +auth_type+ params to the auth request, if you need to set them dynamically.
       # You can also set these options in the OmniAuth config :authorize_params option.
       #
       # For example: /auth/facebook?display=popup
       def authorize_params
         super.tap do |params|
-          %w[display scope auth_type config_id extras response_type].each do |v|
+          %w[display scope auth_type extras response_type].each do |v|
             if request.params[v]
               params[v.to_sym] = request.params[v]
             end
           end
 
-          # params[:scope] ||= DEFAULT_SCOPE
-          # params[:config_id] = "956724726169729"
+          params[:scope] ||= DEFAULT_SCOPE
         end
       end
 
