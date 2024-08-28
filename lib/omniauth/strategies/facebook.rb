@@ -67,8 +67,10 @@ module OmniAuth
           super
         end
       rescue NoAuthorizationCodeError => e
+        p "staging_log_no_authorization_code: #{e}"
         fail!(:no_authorization_code, e)
       rescue OmniAuth::Facebook::SignedRequest::UnknownSignatureAlgorithmError => e
+        p "staging_log_unknown_signature_algorithm: #{e}"
         fail!(:unknown_signature_algorithm, e)
       end
 
